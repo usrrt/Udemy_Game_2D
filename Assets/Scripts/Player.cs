@@ -80,4 +80,9 @@ public class Player : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.LeftArrow)) InputKeyDown(Vector3Int.left);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        gameManager.PlayerTriggerEnter(collision.gameObject);
+    }
 }

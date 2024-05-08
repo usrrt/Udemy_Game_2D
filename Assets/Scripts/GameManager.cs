@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Cam cam;
 
+    public int gainCoin;
+    public int gainStar;
+
     private void Start()
     {
         tileManager.Init();
@@ -17,5 +20,28 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         cam.MoveTarget(player.transform.position);
+    }
+
+    public void PlayerTriggerEnter(GameObject obj)
+    {
+        if (obj.name == "Coin")
+        {
+            gainCoin++;
+            Destroy(obj);
+        }
+        else if(obj.name == "Star")
+        {
+            gainStar++;
+            Destroy(obj);
+        }
+        else if (obj.name == "End")
+        {
+            Goal();
+        }
+    }
+
+    void Goal()
+    {
+        print("Success");
     }
 }
