@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     TileManager tileManager;
 
     public bool isMoveable;
+    public float speed;
     
     // 게임매니저와 타일매니저를 알기 위해 외부에서 입력받기 => 인젝션 기법 사용
     public void Init(GameManager gameManager, TileManager tileManager)
@@ -37,10 +38,20 @@ public class Player : MonoBehaviour
             }
 
             targetCoord = checkCoord;
-             
         }
         
-        transform.position = targetCoord;
+        StartCoroutine(MoveCor(targetCoord));
+    }
+
+    IEnumerator MoveCor(Vector3Int targetCoord)
+    {
+        isMoveable = false; // 움직이는 동안 입력방지
+        while(transform.position != targetCoord)
+        {
+            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, targetCoord, Time.deltaTime * speed);
+        }
+        isMoveable = true;
     }
 
     private void Update()
