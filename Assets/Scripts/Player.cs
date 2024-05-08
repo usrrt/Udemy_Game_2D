@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         }
         
         StartCoroutine(MoveCor(targetCoord));
+        Rotate(dir);
     }
 
     IEnumerator MoveCor(Vector3Int targetCoord)
@@ -52,6 +53,21 @@ public class Player : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetCoord, Time.deltaTime * speed);
         }
         isMoveable = true;
+    }
+
+    void Rotate(Vector3Int dir)
+    {
+        float angleZ = 0;
+        if (dir == Vector3Int.up)
+            angleZ = 180;
+        else if (dir == Vector3Int.down)
+            angleZ = 0;
+        else if (dir == Vector3Int.right)
+            angleZ = 90;
+        else if (dir == Vector3Int.left)
+            angleZ = 270;
+
+        transform.rotation = Quaternion.Euler(0, 0, angleZ);
     }
 
     private void Update()
