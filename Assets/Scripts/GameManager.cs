@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public TileManager tileManager;
+    public UIManager uiManager;
     public Player player;
     public Cam cam;
 
@@ -42,6 +44,11 @@ public class GameManager : MonoBehaviour
 
     void Goal()
     {
-        print("Success");
+        uiManager.ShowResultPanel(gainCoin, gainStar);
+    }
+
+    public void ClickRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
