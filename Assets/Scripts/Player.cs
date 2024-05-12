@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
     GameManager gameManager;
     TileManager tileManager;
 
-    public bool isMoveable;
-    public float speed;
+    [SerializeField] bool isMoveable;
+    [SerializeField] float speed;
     
     // 게임매니저와 타일매니저를 알기 위해 외부에서 입력받기 => 인젝션 기법 사용
     public void Init(GameManager gameManager, TileManager tileManager)
