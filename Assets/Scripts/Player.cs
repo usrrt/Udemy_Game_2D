@@ -7,17 +7,20 @@ public class Player : MonoBehaviour
     GameManager gameManager;
     TileManager tileManager;
 
-    [SerializeField] bool isMoveable;
-    [SerializeField] float speed;
-    
+    [SerializeField]
+    bool isMoveable;
+
+    [SerializeField]
+    float speed;
+
     // 게임매니저와 타일매니저를 알기 위해 외부에서 입력받기 => 인젝션 기법 사용
     public void Init(GameManager gameManager, TileManager tileManager)
     {
         this.gameManager = gameManager;
         this.tileManager = tileManager;
 
-        TileData startTileData = tileManager.GetTileData("Start");
-        transform.position = startTileData.coord;
+        //TileData startTileData = tileManager.GetTileData("Start");
+        //transform.position = startTileData.coord;
     }
 
     void InputKeyDown(Vector3Int dir)
@@ -29,17 +32,17 @@ public class Player : MonoBehaviour
         {
             // 현재위치에서 dir방향 1000블록 까지 한칸씩 검사
             Vector3Int checkCoord = currentCoord + dir * i;
-            if (tileManager.HasTileData(checkCoord, "Wall")) // 벽이 나오면 멈춘다
-                break;
-            if (tileManager.HasTileData(checkCoord, "End"))
-            {
-                targetCoord = checkCoord;
-                break;
-            }
+            //if (tileManager.HasTileData(checkCoord, "Wall")) // 벽이 나오면 멈춘다
+            //    break;
+            //if (tileManager.HasTileData(checkCoord, "End"))
+            //{
+            //    targetCoord = checkCoord;
+            //    break;
+            //}
 
             targetCoord = checkCoord;
         }
-        
+
         StartCoroutine(MoveCor(targetCoord));
         Rotate(dir);
     }
@@ -47,10 +50,14 @@ public class Player : MonoBehaviour
     IEnumerator MoveCor(Vector3Int targetCoord)
     {
         isMoveable = false; // 움직이는 동안 입력방지
-        while(transform.position != targetCoord)
+        while (transform.position != targetCoord)
         {
             yield return null;
-            transform.position = Vector3.MoveTowards(transform.position, targetCoord, Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetCoord,
+                Time.deltaTime * speed
+            );
         }
         isMoveable = true;
     }
@@ -72,12 +79,16 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(isMoveable)
+        if (isMoveable)
         {
-            if(Input.GetKeyDown(KeyCode.UpArrow)) InputKeyDown(Vector3Int.up);
-            else if(Input.GetKeyDown(KeyCode.DownArrow)) InputKeyDown(Vector3Int.down);
-            else if(Input.GetKeyDown(KeyCode.RightArrow)) InputKeyDown(Vector3Int.right);
-            else if(Input.GetKeyDown(KeyCode.LeftArrow)) InputKeyDown(Vector3Int.left);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                InputKeyDown(Vector3Int.up);
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                InputKeyDown(Vector3Int.down);
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                InputKeyDown(Vector3Int.right);
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                InputKeyDown(Vector3Int.left);
         }
     }
 
