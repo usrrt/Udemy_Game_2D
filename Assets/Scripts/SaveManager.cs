@@ -9,7 +9,8 @@ public class SaveManager : MonoBehaviour
     // event는 외부 클래스에서 invoke를 방지하는 특수한 delegate
     public event Action loadEvent;
 
-    [SerializeField] SaveGameData saveGameData;
+    [SerializeField]
+    SaveGameData saveGameData;
 
     public int Coin
     {
@@ -49,7 +50,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadData()
     {
-        if(File.Exists(SavePath))
+        if (File.Exists(SavePath))
         {
             string jsonData = File.ReadAllText(SavePath);
             saveGameData = JsonUtility.FromJson<SaveGameData>(jsonData);
@@ -94,7 +95,6 @@ public class SaveManager : MonoBehaviour
                 //{
                 //    break;
                 //}
-
             }
         }
     }

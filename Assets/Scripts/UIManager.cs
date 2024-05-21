@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
         resultPanel.SetActive(true);
         for (int i = 0; i < stars.Count; i++)
         {
-            if(gainStar > i)
+            if (gainStar > i)
             {
                 stars[i].color = Color.yellow;
             }
